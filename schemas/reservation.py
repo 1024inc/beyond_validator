@@ -1,0 +1,71 @@
+reservation_schema = {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "listingId": {"type": "string", "minLength": 1},
+        "bookedAt": {"type": "string", "format": "date-time", "minLength": 1},
+        "canceledAt": {
+            "oneOf": [
+                {"type": "string", "format": "date-time"},
+                {"const": ""},
+                {"const": None},
+            ]
+        },
+        "checkinDate": {"type": "string", "format": "date", "minLength": 1},
+        "checkoutDate": {"type": "string", "format": "date", "minLength": 1},
+        "amount": {"type": "number"},
+        "cleaningFeeAmount": {"type": "number"},
+        "taxes": {"type": "number"},
+        "rentalAmount": {"type": "number"},
+        "status": {
+            "type": "string",
+            "enum": ["accepted", "canceled", "unconfirmed"],
+            "minLength": 1,
+        },
+        "isOwner": {"type": "boolean"},
+        "currency": {"type": "string", "minLength": 1},
+        "guest": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "firstName": {"type": "string"},
+                "lastName": {"type": "string"},
+                "email": {"type": "string"},
+                "city": {"type": "string"},
+                "state": {"type": "string"},
+                "country": {"type": "string"},
+                "phoneNumber": {"type": "string"},
+            },
+            "required": ["id"],
+        },
+        "adults": {"type": "integer"},
+        "children": {"type": "integer"},
+        "source": {"type": "string"},
+    },
+    "required": [
+        "id",
+        "listingId",
+        "bookedAt",
+        "canceledAt",
+        "checkinDate",
+        "checkoutDate",
+        "amount",
+        "cleaningFeeAmount",
+        "taxes",
+        "rentalAmount",
+        "status",
+        "isOwner",
+        "currency",
+        "guest",
+        "adults",
+        "children",
+        "source",
+    ],
+}
+
+reservation_list_schema = {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "items": reservation_schema,
+}
