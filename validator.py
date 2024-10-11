@@ -27,10 +27,10 @@ def _log_report_for_20x(context: str, schema: dict, payload: dict):
     errors = sorted(validator.iter_errors(payload), key=str)
 
     if not errors:
-        print(f"✅ {context}")
+        print(f"[OK]{context}")
         return
 
-    print(f"❌ {context}")
+    print(f"[ERROR !!] {context}")
 
     for error in errors:
         print(f"    - {error.json_path} - {error.message}")
@@ -54,10 +54,10 @@ def _validate_account_endpoint_returns_401(client: DynamicAPIClient):
     try:
         invalid_client.get_account_information()
     except DynamicExceptions.InvalidCredentials:
-        print("✅ GET /account status:401")
+        print("[OK]GET /account status:401")
     except Exception as e:
         print(e)
-        print("❌ GET /account status:401")
+        print("[ERROR !!] GET /account status:401")
 
 
 def _validate_listing_ids_endpoint_returns_200(client: DynamicAPIClient):
@@ -85,9 +85,9 @@ def _validate_listing_endpoint_returns_404(client: DynamicAPIClient):
     try:
         client.get_listing_by_id("invalid-id")
     except DynamicExceptions.PropertyNotFound:
-        print("✅ GET /listings/invalid-id status:404")
+        print("[OK]GET /listings/invalid-id status:404")
     except Exception:
-        print("❌ GET /listings/invalid-id status:404")
+        print("[ERROR !!] GET /listings/invalid-id status:404")
 
 
 def _validate_listing_calendar_endpoint_returns_200(client: DynamicAPIClient):
@@ -97,7 +97,7 @@ def _validate_listing_calendar_endpoint_returns_200(client: DynamicAPIClient):
         calendar_payload = client.get_calendar_by_listing_id(listing_id)
     except DynamicExceptions.StatusCodeException as e:
         print(
-            f"❌ GET /listings/{listing_id}/calendar returned a {e.status_code} status:200"
+            f"[ERROR !!] GET /listings/{listing_id}/calendar returned a {e.status_code} status:200"
         )
         return
     _log_report_for_20x(
@@ -111,9 +111,9 @@ def _validate_listing_calendar_endpoint_returns_404(client: DynamicAPIClient):
     try:
         client.get_calendar_by_listing_id("invalid-id")
     except DynamicExceptions.PropertyNotFound:
-        print("✅ GET /listings/invalid-id/calendar status:404")
+        print("[OK]GET /listings/invalid-id/calendar status:404")
     except Exception:
-        print("❌ GET /listings/invalid-id/calendar status:404")
+        print("[ERROR !!] GET /listings/invalid-id/calendar status:404")
 
 
 def _validate_post_prices_endpoint_returns_201(client: DynamicAPIClient):
@@ -159,9 +159,9 @@ def _validate_post_prices_endpoint_returns_404(client: DynamicAPIClient):
     try:
         client.post_rates("invalid-id", dummy_rates)
     except DynamicExceptions.PropertyNotFound:
-        print("✅ POST /listings/invalid-id/calendar status:404")
+        print("[OK]POST /listings/invalid-id/calendar status:404")
     except Exception:
-        print("❌ POST /listings/invalid-id/calendar status:404")
+        print("[ERROR !!] POST /listings/invalid-id/calendar status:404")
 
 
 def _validate_listing_reservations_endpoint_returns_200(client: DynamicAPIClient):
@@ -176,11 +176,11 @@ def _validate_listing_reservations_endpoint_returns_200(client: DynamicAPIClient
             payload=reservation_list_payload,
         )
     except IndexError:
-        print(f"❌ GET /listings/{listing_id}/reservations does not return a list.")
+        print(f"[ERROR !!] GET /listings/{listing_id}/reservations does not return a list.")
 
     except DynamicExceptions.InvalidCredentials:
         print(
-            f"❌ GET /listings/{listing_id}/reservations - Our credentials are invalid"
+            f"[ERROR !!] GET /listings/{listing_id}/reservations - Our credentials are invalid"
         )
 
 
@@ -188,9 +188,9 @@ def _validate_listing_reservations_endpoint_returns_404(client: DynamicAPIClient
     try:
         client.get_reservations_by_listing_id("invalid-id")
     except DynamicExceptions.PropertyNotFound:
-        print("✅ GET /listings/invalid-id/reservations status:404")
+        print("[OK]GET /listings/invalid-id/reservations status:404")
     except Exception:
-        print("❌ GET /listings/invalid-id/reservations status:404")
+        print("[ERROR !!] GET /listings/invalid-id/reservations status:404")
 
 
 def _validate_reservation_endpoint_returns_200(client: DynamicAPIClient):
@@ -200,7 +200,7 @@ def _validate_reservation_endpoint_returns_200(client: DynamicAPIClient):
         reservations = client.get_reservations_by_listing_id(listing_id)
         if len(reservations) == 0:
             print(
-                "❌ Couldn't Validate GET /reservations/{id} because listings/{listing_id}/reservations returned no reservations."
+                "[ERROR !!] Couldn't Validate GET /reservations/{id} because listings/{listing_id}/reservations returned no reservations."
             )
             return
 
@@ -212,18 +212,18 @@ def _validate_reservation_endpoint_returns_200(client: DynamicAPIClient):
             payload=reservation_payload,
         )
     except IndexError:
-        print(f"❌ GET /listings/{listing_id}/reservations does not return a list.")
+        print(f"[ERROR !!] GET /listings/{listing_id}/reservations does not return a list.")
     except DynamicExceptions.InvalidCredentials:
-        print(f"❌ GET /listings/{listing_id}/reservations Returns a 401.")
+        print(f"[ERROR !!] GET /listings/{listing_id}/reservations Returns a 401.")
 
 
 def _validate_reservation_endpoint_returns_404(client: DynamicAPIClient):
     try:
         client.get_reservation("invalid-id")
     except DynamicExceptions.ReservationNotFound:
-        print("✅ GET /reservations/invalid_id be status:404")
+        print("[OK]GET /reservations/invalid_id be status:404")
     except Exception:
-        print("❌ Couldn't Validate GET /reservations/invalid_id be status:404")
+        print("[ERROR !!] Couldn't Validate GET /reservations/invalid_id be status:404")
 
 
 def _pre_work(disable_logging: bool = True):
