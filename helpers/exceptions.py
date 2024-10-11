@@ -1,12 +1,14 @@
-class BadRequest(Exception):
+class ChannelException(Exception):
+    pass
+class BadRequest(ChannelException):
     pass
 
 
-class InternalServerError(Exception):
+class InternalServerError(ChannelException):
     pass
 
 
-class AuthenticationError(Exception):
+class AuthenticationError(ChannelException):
     """Parent class for any error that stops us from accessing details on a
     channel that we thought we could access."""
 
@@ -17,20 +19,26 @@ class AuthenticationError(Exception):
     message = "Cannot access account."
 
 
-class InvalidCredentials(Exception):
+class InvalidCredentials(ChannelException):
     pass
 
 
-class PropertyNotFound(Exception):
+class PropertyNotFound(ChannelException):
     pass
 
 
-class PostingRatesError(Exception):
+class PostingRatesError(ChannelException):
     pass
 
 
-class ReservationNotFound(Exception):
+class ReservationNotFound(ChannelException):
     pass
 
-class StatusCodeException(Exception):
-    pass
+class StatusCodeException(ChannelException):
+    def __init__(self, message=None, status_code=None, response=None):
+        # Invoke the parent constructor of Exception so that the exception has a message
+        super().__init__(message)
+
+        self.status_code = status_code
+        self.message = message
+        self.response = response
