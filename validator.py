@@ -14,9 +14,9 @@ from helpers import exceptions as DynamicExceptions
 
 from dateutil.relativedelta import relativedelta
 import datetime
+
 BASE_URL=""
 API_KEY=""
-
 
 
 def _log_report_for_20x(context: str, schema: dict, payload: dict):

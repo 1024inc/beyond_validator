@@ -32,6 +32,7 @@ class DynamicAPIClient():
             "x-api-key": self.api_key,
             "Accept": "application/json",
             "Accept-Encoding": "gzip, deflate",
+            'User-Agent': 'Python-HTTPClient/1.0',
         }
         if headers:
             headers.update(new_headers)
@@ -43,7 +44,7 @@ class DynamicAPIClient():
             response.status_code not in self.allowed_status_codes
         ):
             raise StatusCodeException(
-                message=f"Response status code was "
+                message=f" Response status code was "
                 f"{response.status_code}, `allowed_status_codes` are:"
                 f" {self.allowed_status_codes}",
                 status_code=response.status_code,
