@@ -18,7 +18,7 @@ listings_schema = {
         "bathrooms": {"type": "number"},
         "minNights": {"type": "number"},
         # Needed to be able to handle empty strings
-        "imageUrl": {"type": "string", "oneOf": [{"format": "uri"}, {"maxLength": 0}]},
+        "imageUrl": {"type": "string", "anyOf": [{"format": "uri"}, {"maxLength": 0}]},
         "images": {
             "type": "array",
             "items": {"type": "string", "format": "uri"},

@@ -6,7 +6,7 @@ reservation_schema = {
         "listingId": {"type": "string", "minLength": 1},
         "bookedAt": {"type": "string", "format": "date-time", "minLength": 1},
         "canceledAt": {
-            "oneOf": [
+            "anyOf": [
                 {"type": "string", "format": "date-time"},
                 {"const": ""},
                 {"const": None},
