@@ -67,8 +67,8 @@ listings_schema = {
                 "state": {"type": "string"},
                 "country": {"type": "string", "minLength": 1},
                 "zipCode": {"type": "string", "minLength": 1},
-                "latitude": {"type": "string", "minLength": 1},
-                "longitude": {"type": "string", "minLength": 1},
+                "latitude": {"type": "number"},
+                "longitude": {"type": "number"},
             },
             "required": [
                 "street",
