@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "beyond-validator"
+version = "0.1.0"
+description = "Integration validator for Beyond Pricing partner APIs"
+requires-python = ">=3.11"
+dependencies = [
+    "jsonschema>=4.23.0",
+    "python-dateutil>=2.9.0",
+    "requests>=2.32.3",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["beyond_validator*"]

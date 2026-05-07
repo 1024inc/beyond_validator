@@ -1,8 +1,8 @@
 import logging
 
 from jsonschema import Draft202012Validator
-from helpers.client import DynamicAPIClient
-from schemas import (
+from beyond_validator.helpers.client import DynamicAPIClient
+from beyond_validator.schemas import (
     account_schema,
     calendar_schema,
     listing_ids_schema,
@@ -10,7 +10,7 @@ from schemas import (
     reservation_list_schema,
     reservation_schema,
 )
-from helpers import exceptions as DynamicExceptions
+from beyond_validator.helpers import exceptions as DynamicExceptions
 
 from dateutil.relativedelta import relativedelta
 import datetime
