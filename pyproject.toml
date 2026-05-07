@@ -9,7 +9,7 @@ description = "Integration validator for Beyond Pricing partner APIs"
 requires-python = ">=3.11"
 dependencies = [
     "jsonschema>=4.23.0",
-    "python-dateutil>=2.9.0",
+    "python-dateutil>=2.8.2",
     "requests>=2.32.3",
 ]
 
