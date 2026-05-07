@@ -253,4 +253,6 @@ def run(base_url: str, api_key: str, disable_logging: bool = True):
     _validate_post_prices_endpoint_returns_201(client)
     _validate_post_prices_endpoint_returns_404(client)
 
-run(BASE_URL, API_KEY)
+if __name__ == "__main__":
+    run(BASE_URL, API_KEY)
+
